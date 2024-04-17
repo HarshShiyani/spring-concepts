@@ -1,7 +1,10 @@
 package com.harsh.springconcepts;
 
+import com.harsh.springconcepts.bean_nature.concept1.CachingMovieLister;
 import com.harsh.springconcepts.bean_scopes.concept1.PrototypeBean;
 import com.harsh.springconcepts.bean_scopes.concept1.SingletonBean;
+import java.util.Map;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -15,7 +18,8 @@ public class SpringConceptsApplication {
             SpringConceptsApplication.class,
             args);
 
-        beanScopeConcept1(context);
+        // beanScopeConcept1(context);
+        beanNatureConcept1(context);
     }
 
     public static void beanScopeConcept1(ApplicationContext applicationContext) {
@@ -26,5 +30,15 @@ public class SpringConceptsApplication {
         System.out.println("PrototypeBean1 : " + prototypeBean1);
         System.out.println("PrototypeBean2 : " + prototypeBean2);
         System.out.println("Are both prototype beans same ? " + (prototypeBean1 == prototypeBean2));
+    }
+
+    public static void beanNatureConcept1(ConfigurableApplicationContext applicationContext) {
+
+        String[] beanNamesForType = applicationContext.getBeanNamesForType(
+            CachingMovieLister.class);
+        System.out.println(beanNamesForType);
+
+        CachingMovieLister cachingMovieLister = (CachingMovieLister) applicationContext.getBean(beanNamesForType[0]);
+        System.out.println(cachingMovieLister);
     }
 }
