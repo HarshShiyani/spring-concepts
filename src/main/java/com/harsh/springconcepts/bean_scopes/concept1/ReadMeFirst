@@ -1,0 +1,6 @@
+
+Concept: Singleton Beans with Prototype-bean Dependencies
+
+If we need to have a different prototype bean instance every time than we have got two approaches
+    1) Method Injection - @Lookup annotation
+    2) Use of ApplicationContextAware interface
