@@ -3,6 +3,8 @@ package com.harsh.springconcepts;
 import com.harsh.springconcepts.bean_nature.concept1.CachingMovieLister;
 import com.harsh.springconcepts.bean_scopes.concept1.PrototypeBean;
 import com.harsh.springconcepts.bean_scopes.concept1.SingletonBean;
+import com.harsh.springconcepts.evets.concept1.EmailService;
+import java.util.Collections;
 import java.util.Map;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +21,8 @@ public class SpringConceptsApplication {
             args);
 
         // beanScopeConcept1(context);
-        beanNatureConcept1(context);
+        // beanNatureConcept1(context);
+        eventsConcept1(context);
     }
 
     public static void beanScopeConcept1(ApplicationContext applicationContext) {
@@ -40,5 +43,11 @@ public class SpringConceptsApplication {
 
         CachingMovieLister cachingMovieLister = (CachingMovieLister) applicationContext.getBean(beanNamesForType[0]);
         System.out.println(cachingMovieLister);
+    }
+
+    public static void eventsConcept1(ConfigurableApplicationContext applicationContext) {
+        EmailService emailService = applicationContext.getBean(EmailService.class);
+        emailService.setBlockedList(Collections.singletonList("iamblocked@gmail.com"));
+        emailService.sendEmail("iamblocked@gmail.com", "Hello There...");
     }
 }
